@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
 //DESCRIPCION DE PASOS 
 /*
  PARA TRAER UNA BASE DE DATOS A CLASES 
@@ -17,3 +16,38 @@ Scaffold-DbContext "String de conexion a base de datos" -ContextDir NombreCarpet
 
 //BORRAR LO QUE YA TENÍAMOS (DATA Y MODELS) Y RE SCAFFOLDEAR LA BASE DE DATOS
  */
+
+using EF_Pizza_Scaffold.Data;
+using EF_PizzaReScaffold.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container,
+builder.Services.AddRazorPages();
+builder.Services.AddDbContext<EF_Pizza_Scaffold.Data.EfpizzaContext> options => options.UseSqlServer(builder.Configuration.GetConnectionString("ContosoPizza"));
+
+var app = buildep.8uildO;
+// Configure the HTTP request pipeline
+if (!app.Environment.IsDevelopment())
+{
+
+}
+
+
+
+app - UseExceptionHandler(*/ Error");
+// The default HSTS value is 30 days. You may want to change this for production sc
+app.Uselists(;
+
+app.UselittpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting0);
+
+app.UseAuthorization();
+app.MapRazorPages();
+
+app - RunQ;
+
