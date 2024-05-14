@@ -1,5 +1,5 @@
 ﻿@page
-@model EF_PizzaWeb.Pages.Products.IndexModel
+@model EF_PizzaWeb.Pages.CRUDOrders.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,28 +14,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].Name)
+                @Html.DisplayNameFor(model => model.Order[0].OrderPlaced)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].Price)
+                @Html.DisplayNameFor(model => model.Order[0].OrderFulfilled)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].Category)
+                @Html.DisplayNameFor(model => model.Order[0].Customer)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Product) {
+@foreach (var item in Model.Order) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.OrderPlaced)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.OrderFulfilled)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category)
+                @Html.DisplayFor(modelItem => item.Customer.Id)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

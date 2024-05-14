@@ -1,5 +1,5 @@
 ﻿@page
-@model EF_PizzaWeb.Pages.Products.DetailsModel
+@model EF_PizzaWeb.Pages.CRUDProducts.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
@@ -25,12 +25,7 @@
         </dd>
     </dl>
 </div>
-
-@if (Model.CustomerId > 0)
-{
-    var customerName = $"{Model.Customer.FirstName} {Model.Customer.LastName}";
-
-    <div>
-        <a asp-page="../Customers/Details" asp-route-id="@Model.CustomerId">Back to @customerName's Orders</a>
-    </div>
-}
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Product?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EF_PizzaWeb.Data;
 using EF_PizzaWeb.Models;
 
-namespace EF_PizzaWeb.Pages.Products
+namespace EF_PizzaWeb.Pages.CRUDOrders
 {
     public class DeleteModel : PageModel
     {
@@ -20,40 +20,40 @@ namespace EF_PizzaWeb.Pages.Products
         }
 
         [BindProperty]
-      public Product Product { get; set; } = default!;
+      public Order Order { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
+            var order = await _context.Orders.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (product == null)
+            if (order == null)
             {
                 return NotFound();
             }
             else 
             {
-                Product = product;
+                Order = order;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Products == null)
+            if (id == null || _context.Orders == null)
             {
                 return NotFound();
             }
-            var product = await _context.Products.FindAsync(id);
+            var order = await _context.Orders.FindAsync(id);
 
-            if (product != null)
+            if (order != null)
             {
-                Product = product;
-                _context.Products.Remove(Product);
+                Order = order;
+                _context.Orders.Remove(Order);
                 await _context.SaveChangesAsync();
             }
 

@@ -5,8 +5,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<EfpizzaContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("EF_PizzaWeb")));
+//builder.Services.AddDbContext<EfpizzaContext>(options => //pool reusa instancias
+builder.Services.AddDbContextPool<EfpizzaContext>(options =>
+
+options
+.UseLazyLoadingProxies() //mark navigation properties as virtual, so the proxies can override them
+.UseSqlServer(builder.Configuration.GetConnectionString("EF_PizzaWeb")));
 
 var app = builder.Build();
 

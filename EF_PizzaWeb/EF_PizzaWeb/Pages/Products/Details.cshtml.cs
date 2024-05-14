@@ -12,31 +12,42 @@ namespace EF_PizzaWeb.Pages.Products
 {
     public class DetailsModel : PageModel
     {
-        private readonly EF_PizzaWeb.Data.EfpizzaContext _context;
+        private readonly EfpizzaContext _context;
 
-        public DetailsModel(EF_PizzaWeb.Data.EfpizzaContext context)
+        public DetailsModel(EfpizzaContext context)
         {
             _context = context;
         }
 
-      public Product Product { get; set; } = default!; 
+        public Product Product { get; set; }
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+
+        public async Task<IActionResult> OnGetAsync(int? id, int customerId)
         {
-            if (id == null || _context.Products == null)
+            if (id == null)
+            {
+                return NotFound();
+            }
+            CustomerId = customerId;
+
+            Product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
+            Product = await _context.Products.FindAsync(id);
+
+            if (Product == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (CustomerId > 0)
             {
-                return NotFound();
+                Customer = await _context.Customers
+                    //.Where(c => c.Id == CustomerId)
+                    .FromSqlInterpolated($"SELECT * FROM Customers WHERE Id = {CustomerId}")
+                    .FirstOrDefaultAsync();
             }
-            else 
-            {
-                Product = product;
-            }
+
             return Page();
         }
     }
