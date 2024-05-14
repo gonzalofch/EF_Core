@@ -1,7 +1,12 @@
+using EF_PizzaWeb.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<EfpizzaContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("EF_PizzaWeb")));
 
 var app = builder.Build();
 
